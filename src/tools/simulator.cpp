@@ -11,6 +11,7 @@
 #include <fstream>
 #include <tuple>
 #include "himesh.h"
+#include "face_classifier.h"
 #include "tile.h"
 #include "popl.h"
 
@@ -45,12 +46,79 @@ pthread_mutex_t mylock;
 bool multi_lods = false;
 bool allow_intersection = false;
 
+static void copy_face_hausdorff(HiMesh *src, HiMesh *dst){
+	HiMesh::Face_iterator sfit = src->facets_begin();
+	HiMesh::Face_iterator dfit = dst->facets_begin();
+	for(; sfit != src->facets_end() && dfit != dst->facets_end(); ++sfit, ++dfit){
+		dfit->setProxyHausdorff(sfit->getProxyHausdorff());
+		dfit->setHausdorff(sfit->getHausdorff());
+		if(sfit->isSplittable() && !dfit->isSplittable()){
+			dfit->setSplittable();
+		}
+	}
+	assert(sfit == src->facets_end() && dfit == dst->facets_end());
+}
+
+static void apply_inside_outside_classification(HiMesh *mesh, HiMesh *ref){
+	FaceClassifier classifier(ref);
+	for(HiMesh::Facet_iterator f = mesh->facets_begin(); f != mesh->facets_end(); ++f){
+		HiMesh::Halfedge_const_handle e1 = f->halfedge();
+		HiMesh::Halfedge_const_handle e2 = e1->next();
+		Point p1 = e1->vertex()->point();
+		Point p2 = e2->vertex()->point();
+		Point p3 = e2->next()->vertex()->point();
+		float tri[9] = {
+			(float)p1.x(), (float)p1.y(), (float)p1.z(),
+			(float)p2.x(), (float)p2.y(), (float)p2.z(),
+			(float)p3.x(), (float)p3.y(), (float)p3.z()
+		};
+		FaceLocation loc = classifier.classify_triangle(tri, 5);
+		if(loc == FACE_INSIDE){
+			f->setHausdorff(0);
+		}else if(loc == FACE_OUTSIDE){
+			f->setProxyHausdorff(0);
+		}
+	}
+}
+
+static void compute_multilod_hausdorff_once(map<int, HiMesh *> &meshes, const char *label){
+	if(meshes.empty() || meshes.find(100) == meshes.end()){
+		return;
+	}
+	HiMesh *ref = meshes[100];
+	ref->updateAABB();
+	ref->area_unit = ref->sampling_gap();
+	ref->sample_points(ref->area_unit);
+
+	struct timeval start = get_cur_time();
+	for(int lod: lod_levels_desc()){
+		if(lod == 100){
+			continue;
+		}
+		assert(meshes.find(lod) != meshes.end());
+		HiMesh *cur = meshes[lod];
+		for(HiMesh::Face_iterator fit = cur->facets_begin();
+		    fit != cur->facets_end(); ++fit){
+			if(!fit->isSplittable()){
+				fit->setSplittable();
+			}
+		}
+		auto hd = cur->computeHausdorfDistance(ref);
+		auto avg = cur->collectGlobalHausdorff(AVG);
+		auto maxv = cur->collectGlobalHausdorff(MAX);
+		log("%s LOD%d cached hausdorff MAX(ph=%.3f,h=%.3f) AVG(ph=%.3f,h=%.3f) vertices=%zu rawMAX(ph=%.3f,h=%.3f)",
+		    label, lod, maxv.first, maxv.second, avg.first, avg.second,
+		    cur->size_of_vertices(), hd.first, hd.second);
+	}
+	logt("compute cached multi-lod hausdorff for %s", start, label);
+}
+
 void load_prototype(const char *nuclei_path, const char *vessel_path){
 
 	// load the vessel
 	if(multi_lods){
 		char path[256];
-		for(int lod=100;lod>=20;lod-=20){
+		for(int lod: lod_levels_desc()){
 			sprintf(path, "%s_%d.off", vessel_path, lod);
 			log("loading %s",path);
 			HiMesh *m = read_mesh(path);
@@ -66,12 +134,20 @@ void load_prototype(const char *nuclei_path, const char *vessel_path){
 	assert(vessel);
 	aab mbb = vessel->get_mbb();
 	vessel_box = vessel->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+	if(multi_lods){
+		for(auto &m:vessels){
+			if(m.first != 100){
+				m.second->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+			}
+		}
+		compute_multilod_hausdorff_once(vessels, "vessel");
+	}
 
 	// load the nuclei
 	if(multi_lods){
 		char path[256];
 		// load the nuclei
-		for(int lod=100;lod>=20;lod-=20){
+		for(int lod: lod_levels_desc()){
 			sprintf(path, "%s_%d.off", nuclei_path, lod);
 			log("loading %s",path);
 			HiMesh *m = read_mesh(path);
@@ -90,6 +166,14 @@ void load_prototype(const char *nuclei_path, const char *vessel_path){
 	}
 	mbb = nuclei->get_mbb();
 	nuclei_box = nuclei->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+	if(multi_lods){
+		for(auto &m:nucleis){
+			if(m.first != 100){
+				m.second->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+			}
+		}
+		compute_multilod_hausdorff_once(nucleis, "nuclei");
+	}
 
 	// how many slots in each dimension can one vessel holds
 	int nuclei_num[3];
@@ -145,11 +229,17 @@ HiMesh_Wrapper *organize_data(map<int, HiMesh *> &meshes, float shift[3]){
 
 	for(auto m:meshes){
 		HiMesh *nmesh = m.second->clone_mesh();
+		copy_face_hausdorff(m.second, nmesh);
 		nmesh->shift(shift[0], shift[1], shift[2]);
 		local_meshes[m.first] = nmesh;
 	}
 
 	HiMesh_Wrapper *wr = new HiMesh_Wrapper(local_meshes,voxel_size);
+	for(auto &m:local_meshes){
+		if(m.first != 100){
+			m.second->original_mesh = NULL;
+		}
+	}
 	return wr;
 }
 
@@ -388,7 +478,7 @@ void load_prototype(const char *nuclei_path){
 	if(multi_lods){
 		char path[256];
 		// load the nuclei
-		for(int lod=100;lod>=20;lod-=20){
+		for(int lod: lod_levels_desc()){
 			sprintf(path, "%s_%d.off", nuclei_path, lod);
 			log("loading %s",path);
 			HiMesh *m = read_mesh(path);
@@ -404,6 +494,14 @@ void load_prototype(const char *nuclei_path){
 	assert(nuclei);
 	auto mbb = nuclei->get_mbb();
 	nuclei_box = nuclei->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+	if(multi_lods){
+		for(auto &m:nucleis){
+			if(m.first != 100){
+				m.second->shift(-mbb.low[0], -mbb.low[1], -mbb.low[2]);
+			}
+		}
+		compute_multilod_hausdorff_once(nucleis, "nuclei");
+	}
 }
 
 void* generate_unit_int(void* arg) {

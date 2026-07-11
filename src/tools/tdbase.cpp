@@ -8,11 +8,24 @@
 #include <algorithm>
 #include <thread>
 #include <map>
+#include <vector>
+#include <cmath>
 
 #include "SpatialJoin.h"
 #include "himesh.h"
 #include "tile.h"
 #include "util.h"
+
+// QEC (Quadric Error Collapse) simplification
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/Surface_mesh.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/GarlandHeckbert_policies.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/LindstromTurk_cost.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/LindstromTurk_placement.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Bounded_normal_change_placement.h>
+#include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Edge_count_stop_predicate.h>
+#include <CGAL/boost/graph/IO/polygon_mesh_io.h>
+#include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
 
 using namespace std;
 using namespace tdbase;
@@ -356,6 +369,177 @@ static void compress(int argc, char **argv){
 	delete hm;
 }
 
+// QEC (Quadric Error Collapse / Garland-Heckbert) based LOD generation
+// Generates LOD20 to LOD100 OFF files by simplifying the mesh
+// using quadric error metrics instead of progressive compression.
+static void compress_qec(int argc, char **argv){
+
+	std::string str(argv[1]);
+	config.verbose = 2;
+
+	typedef CGAL::Simple_cartesian<double> QEC_Kernel;
+	typedef QEC_Kernel::Point_3 QEC_Point_3;
+	typedef CGAL::Surface_mesh<QEC_Point_3> QEC_Surface_mesh;
+	namespace QEC_SMS = CGAL::Surface_mesh_simplification;
+
+	struct timeval start = get_cur_time();
+	QEC_Surface_mesh mesh;
+	if(!CGAL::IO::read_polygon_mesh(str, mesh)){
+		std::cerr << "Failed to read input mesh: " << str << std::endl;
+		return;
+	}
+	if(!CGAL::is_triangle_mesh(mesh)){
+		CGAL::Polygon_mesh_processing::triangulate_faces(mesh);
+	}
+	logt("load mesh", start);
+	log("Input: %ld vertices, %ld faces",
+		mesh.number_of_vertices(), mesh.number_of_faces());
+
+	char path[256];
+	std::string base_filename = str.substr(
+		str.find_last_of("/\\") + 1,
+		str.find_last_of('.') - str.find_last_of("/\\") - 1);
+
+	// Save LOD100 (original, no simplification)
+	sprintf(path, "%s_%d.off", base_filename.c_str(), 100);
+	CGAL::IO::write_polygon_mesh(path, mesh, CGAL::parameters::stream_precision(17));
+	log("Wrote %s (%ld vertices, %ld faces)",
+		path, mesh.number_of_vertices(), mesh.number_of_faces());
+
+	// Garland-Heckbert QEC policies
+	typedef QEC_SMS::GarlandHeckbert_plane_policies<QEC_Surface_mesh, QEC_Kernel> GHPolicies;
+	typedef QEC_SMS::Bounded_normal_change_placement<typename GHPolicies::Get_placement> BoundedPlacement;
+
+	// Keep QEC LOD sizes on the same near-2x scale as the old PPMC output.
+	// For the usual nuclei mesh this gives roughly:
+	//   LOD20 ~= 1/16, LOD40 ~= 1/8, LOD60 ~= 1/4, LOD80 ~= 1/2, LOD100 = full.
+	// CGAL's QEC stop predicate is edge-count based. For closed triangular meshes,
+	// E ~= 3F/2 and V ~= F/2, so we derive the stop edge count from the target
+	// face count and print both target/actual counts for verification.
+	struct LodTarget {
+		int lod;
+		long vertices;
+		long faces;
+		long edges;
+	};
+	std::vector<LodTarget> targets;
+	long full_vertices = (long)mesh.number_of_vertices();
+	long full_faces = (long)mesh.number_of_faces();
+	for(int target_lod: {90, 80, 60, 40, 30, 20}){
+		double divisor = std::pow(2.0, (100.0 - target_lod) / 20.0);
+		long target_vertices = std::max(4L, (long)std::llround(full_vertices / divisor));
+		long target_faces = std::max(4L, (long)std::llround(full_faces / divisor));
+		long target_edges = std::max(3L, (target_faces * 3 + 1) / 2);
+		targets.push_back({target_lod, target_vertices, target_faces, target_edges});
+	}
+
+	// Build a progressive QEC chain:
+	// LOD100 -> LOD90 -> LOD80 -> LOD60 -> LOD40 -> LOD30 -> LOD20.
+	QEC_Surface_mesh simplified = mesh;
+	for (auto &target:targets) {
+		int target_lod = target.lod;
+		long vertex_count = target.vertices;
+		long face_count = target.faces;
+		long edge_count = target.edges;
+
+		QEC_SMS::Edge_count_stop_predicate<QEC_Surface_mesh> stop(edge_count);
+		GHPolicies gh_policies(simplified);
+		BoundedPlacement placement(gh_policies.get_placement());
+
+		start = get_cur_time();
+		int removed = QEC_SMS::edge_collapse(simplified, stop,
+			CGAL::parameters::get_cost(gh_policies.get_cost())
+							 .get_placement(placement));
+
+		log("LOD %d: target %ld vertices/%ld faces/%ld edges -> %ld vertices, %ld faces (%d edges collapsed this stage)",
+			target_lod, vertex_count, face_count, edge_count,
+			simplified.number_of_vertices(),
+			simplified.number_of_faces(), removed);
+
+		sprintf(path, "%s_%d.off", base_filename.c_str(), target_lod);
+		CGAL::IO::write_polygon_mesh(path, simplified,
+			CGAL::parameters::stream_precision(17));
+		logt("LOD %d done", start, target_lod);
+	}
+}
+
+// Generates progressive LOD OFF files using Lindstrom-Turk edge collapse.
+// Output names are <input_basename>_lt_100.off, ..., <input_basename>_lt_20.off.
+static void compress_lt(int argc, char **argv){
+
+	std::string str(argv[1]);
+	config.verbose = 2;
+
+	typedef CGAL::Simple_cartesian<double> LT_Kernel;
+	typedef LT_Kernel::Point_3 LT_Point_3;
+	typedef CGAL::Surface_mesh<LT_Point_3> LT_Surface_mesh;
+	namespace LT_SMS = CGAL::Surface_mesh_simplification;
+
+	struct timeval start = get_cur_time();
+	LT_Surface_mesh mesh;
+	if(!CGAL::IO::read_polygon_mesh(str, mesh)){
+		std::cerr << "Failed to read input mesh: " << str << std::endl;
+		return;
+	}
+	if(!CGAL::is_triangle_mesh(mesh)){
+		CGAL::Polygon_mesh_processing::triangulate_faces(mesh);
+	}
+	logt("load mesh", start);
+	log("Input: %ld vertices, %ld faces",
+		mesh.number_of_vertices(), mesh.number_of_faces());
+
+	char path[256];
+	std::string base_filename = str.substr(
+		str.find_last_of("/\\") + 1,
+		str.find_last_of('.') - str.find_last_of("/\\") - 1);
+
+	sprintf(path, "%s_lt_%d.off", base_filename.c_str(), 100);
+	CGAL::IO::write_polygon_mesh(path, mesh, CGAL::parameters::stream_precision(17));
+	log("Wrote %s (%ld vertices, %ld faces)",
+		path, mesh.number_of_vertices(), mesh.number_of_faces());
+
+	struct LodTarget {
+		int lod;
+		long vertices;
+		long faces;
+		long edges;
+	};
+	std::vector<LodTarget> targets;
+	long full_vertices = (long)mesh.number_of_vertices();
+	long full_faces = (long)mesh.number_of_faces();
+	for(int target_lod: {90, 80, 60, 40, 30, 20}){
+		double divisor = std::pow(2.0, (100.0 - target_lod) / 20.0);
+		long target_vertices = std::max(4L, (long)std::llround(full_vertices / divisor));
+		long target_faces = std::max(4L, (long)std::llround(full_faces / divisor));
+		long target_edges = std::max(3L, (target_faces * 3 + 1) / 2);
+		targets.push_back({target_lod, target_vertices, target_faces, target_edges});
+	}
+
+	// Progressive chain:
+	// LOD100 -> LOD90 -> LOD80 -> LOD60 -> LOD40 -> LOD30 -> LOD20.
+	LT_Surface_mesh simplified = mesh;
+	for(auto &target:targets){
+		LT_SMS::Edge_count_stop_predicate<LT_Surface_mesh> stop(target.edges);
+		LT_SMS::LindstromTurk_cost<LT_Surface_mesh> cost;
+		LT_SMS::LindstromTurk_placement<LT_Surface_mesh> placement;
+
+		start = get_cur_time();
+		int removed = LT_SMS::edge_collapse(simplified, stop,
+			CGAL::parameters::get_cost(cost)
+							 .get_placement(placement));
+
+		log("LT LOD %d: target %ld vertices/%ld faces/%ld edges -> %ld vertices, %ld faces (%d edges collapsed this stage)",
+			target.lod, target.vertices, target.faces, target.edges,
+			simplified.number_of_vertices(),
+			simplified.number_of_faces(), removed);
+
+		sprintf(path, "%s_lt_%d.off", base_filename.c_str(), target.lod);
+		CGAL::IO::write_polygon_mesh(path, simplified,
+			CGAL::parameters::stream_precision(17));
+		logt("LT LOD %d done", start, target.lod);
+	}
+}
+
 static void distance(int argc, char **argv){
 	assert(argc>4);
 	int n1 = atoi(argv[3]);
@@ -456,6 +640,41 @@ static void convert(int argc, char **argv){
 	Tile *tile = new Tile(argv[1]);
 	tile->dump_raw(argv[2]);
 	delete tile;
+}
+
+// Pack multiple LOD OFF files into a single MULTIMESH dt file.
+// Usage: tdbase off2dt <off_prefix> <output.dt>
+// Example: tdbase off2dt nuclei nuclei_multilod.dt
+//   -> reads nuclei_20.off, nuclei_30.off, ..., nuclei_100.off
+static void off2dt(int argc, char **argv){
+	if(argc < 3){
+		cerr << "Usage: off2dt <off_prefix> <output.dt>" << endl;
+		return;
+	}
+	string prefix = argv[1];
+	const char *output_path = argv[2];
+
+	map<int, HiMesh *> lod_meshes;
+	char path[256];
+	for(int lod: lod_levels()){
+		sprintf(path, "%s_%d.off", prefix.c_str(), lod);
+		if(!file_exist(path)){
+			cerr << "File not found: " << path << endl;
+			for(auto &p : lod_meshes) delete p.second;
+			return;
+		}
+		lod_meshes[lod] = read_mesh(path, false);
+		log("Loaded %s (%ld vertices)", path,
+			lod_meshes[lod]->size_of_vertices());
+	}
+
+	HiMesh_Wrapper *wr = new HiMesh_Wrapper(lod_meshes, NUM_FACET_PER_VOXEL);
+	vector<HiMesh_Wrapper *> wrappers = {wr};
+	Tile tile(wrappers);
+	tile.dump_raw(output_path);
+	log("Written MULTIMESH dt to %s", output_path);
+
+	delete wr;
 }
 
 static void shrink(int argc, char **argv){
@@ -627,12 +846,15 @@ int main(int argc, char **argv){
 	functions["sample"] = sample;
 	functions["simplify"] = simplify;
 	functions["compress"] = compress;
+	functions["compress_qec"] = compress_qec;
+	functions["compress_lt"] = compress_lt;
 	functions["distance"] = distance;
 	functions["intersect"] = intersect;
 	functions["print"] = print;
 	functions["decode"] = decode;
 	functions["print_tile_boxes"] = print_tile_boxes;
 	functions["convert"] = convert;
+	functions["off2dt"] = off2dt;
 	functions["shrink"] = shrink;
 	functions["shift"] = shift;
 	functions["hausdorff"] = hausdorff;

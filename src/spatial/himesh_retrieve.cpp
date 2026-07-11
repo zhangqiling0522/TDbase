@@ -6,6 +6,7 @@
  */
 
 #include "himesh.h"
+#include "face_classifier.h"
 
 
 namespace tdbase{
@@ -133,20 +134,61 @@ size_t HiMesh::fill_hausdorf_distances(float *&hausdorf){
 	hausdorf = new float[2*size];
 	assert(hausdorf);
 	float *cur_S = hausdorf;
+
+	// Classify faces
+	//   INSIDE face  则令 hausdorff=0 
+	//   OUTSIDE face 则令 proxy_hausdorff=0 
+	FaceClassifier *classifier = nullptr;
+	if (original_mesh) {
+		classifier = new FaceClassifier(original_mesh);
+	}
+
 	int inserted = 0;
 	for ( Facet_iterator f = facets_begin(); f != facets_end(); ++f){
 		Halfedge_const_handle e1 = f->halfedge();
 		Halfedge_const_handle e2 = e1->next();
+
+		// Classify once per face using the first triangle
+		FaceLocation loc = FACE_INTERSECT;
+		if (classifier) {
+			Point p1 = e1->vertex()->point();
+			Point p2 = e2->vertex()->point();
+			Point p3 = e2->next()->vertex()->point();
+			float tri[9] = {
+				(float)p1.x(), (float)p1.y(), (float)p1.z(),
+				(float)p2.x(), (float)p2.y(), (float)p2.z(),
+				(float)p3.x(), (float)p3.y(), (float)p3.z()
+			};
+			loc = classifier->classify_triangle(tri, 5);
+		}
+
+		float ph = f->getProxyHausdorff();
+		float h  = f->getHausdorff();
+
+		if (loc == FACE_INSIDE) {
+			h = 0;   // inside → no need to add hausdorff for upper bound
+		} else if (loc == FACE_OUTSIDE) {
+			ph = 0;  // outside → no need to subtract proxy hausdorff for lower bound
+		}
+
 		do{
-			*cur_S = f->getProxyHausdorff();
+			*cur_S = ph;
 			cur_S++;
-			*cur_S = f->getHausdorff();
+			*cur_S = h;
 			cur_S++;
 			inserted++;
+			
 			e2 = e2->next();
 		}while(e1!=e2->next());
 	}
+
+	delete classifier;
 	assert(inserted==size);
+	log("%zu(tot=%zu): sample hausdorff=[%.3f,%.3f] [%.3f,%.3f] [%.3f,%.3f]",
+	    size, size_of_facets(),
+	    hausdorf[0], hausdorf[1],
+	    hausdorf[2], hausdorf[3],
+	    hausdorf[4], hausdorf[5]);
 	return size;
 }
 

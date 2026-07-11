@@ -53,7 +53,7 @@ public:
 	OctreeNode *build_octree(size_t num_tiles);
 	OctreeNode *get_octree(){
 		if(tree==NULL){
-			tree = build_octree(10);
+			tree = build_octree(100);
 		}
 		return tree;
 	}

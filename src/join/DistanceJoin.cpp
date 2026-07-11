@@ -71,13 +71,18 @@ void DistanceJoin::update_distance_ranges(query_context &ctx){
 		for(candidate_info &ci:c->candidates){
 			HiMesh_Wrapper *wrapper2 = ci.mesh_wrapper;
 
-			if(config.use_aabb){
-				// progressive query is invalid when AABB acceleration is enabled
-				assert(ctx.cur_lod==config.highest_lod());
-				result_container res = ctx.gp.results[index++];
-				ci.distance.mindist = res.distance;
-				ci.distance.maxdist = res.distance;
-			}else{
+				if(config.use_aabb){
+					// progressive query is invalid when AABB acceleration is enabled
+					assert(ctx.cur_lod==config.highest_lod());
+					result_container res = ctx.gp.results[index++];
+					ci.distance.mindist = res.distance;
+					ci.distance.maxdist = res.distance;
+					if(config.verbose>=1){
+						log("OBJ_RANGE LOD %d %ld->%ld: [%.6f, %.6f]",
+							ctx.cur_lod, wrapper1->id, wrapper2->id,
+							ci.distance.mindist, ci.distance.maxdist);
+					}
+				}else{
 				double vox_minmaxdist = DBL_MAX;
 				for(voxel_pair &vp:ci.voxel_pairs){
 					result_container res = ctx.gp.results[index++];
@@ -128,10 +133,29 @@ void DistanceJoin::update_distance_ranges(query_context &ctx){
 					//assert(dist.valid());
 				}// end of voxel pair iteration
 				// after each round, some voxels need to be evicted,
-				// remove the invalid pair (either voxel is empty) at the highest LOD
-				// (happens when low LOD serve as the highest LOD, some voxel may be empty)
-				ci.distance = update_voxel_pair_list(ci.voxel_pairs, vox_minmaxdist,!(ctx.cur_lod==config.highest_lod()));
-				assert(ci.voxel_pairs.size()>0);
+					// remove the invalid pair (either voxel is empty) at the highest LOD
+					// (happens when low LOD serve as the highest LOD, some voxel may be empty)
+					range current_range = update_voxel_pair_list(ci.voxel_pairs, vox_minmaxdist,!(ctx.cur_lod==config.highest_lod()));
+					bool has_previous_range = (ci.distance.mindist != 0 || ci.distance.maxdist != 0);
+					if(ctx.cur_lod==config.highest_lod() || !has_previous_range){
+						ci.distance = current_range;
+					}else{
+						range constrained_range;
+						constrained_range.mindist = max(ci.distance.mindist, current_range.mindist);
+						constrained_range.maxdist = min(ci.distance.maxdist, current_range.maxdist);
+						if(constrained_range.valid()){
+							ci.distance = constrained_range;
+						}else{
+							// Independent QEC LODs may occasionally produce non-overlapping
+							// ranges. Keep the previous cumulative range rather than widening.
+						}
+					}
+					if(config.verbose>=1){
+						log("OBJ_RANGE LOD %d %ld->%ld: [%.6f, %.6f]",
+							ctx.cur_lod, wrapper1->id, wrapper2->id,
+							ci.distance.mindist, ci.distance.maxdist);
+					}
+					assert(ci.voxel_pairs.size()>0);
 				//assert(ci.distance.valid());
 			}// end the if for AABB or progressive querying
 		}// end evaluate the candidates for each object

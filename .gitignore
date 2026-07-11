@@ -15,3 +15,17 @@ build/
 *.autotools
 *.sln
 *.vcxproj*
+*.dt
+*.sql
+*.log
+*.png
+*.csv
+result.txt
+gen.log
+qec_*
+nuclei_data_*
+nuclei_*.off
+*.orig
+src/.cache/
+src/build/
+.cache/

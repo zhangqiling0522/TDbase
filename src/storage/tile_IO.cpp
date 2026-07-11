@@ -108,7 +108,7 @@ void Tile::dump_raw(const char *path){
 
 		map<int, float> hausdorffs;
 		map<int, float> proxyhausdorffs;
-		for(int lod=20;lod<=100;lod+=20){
+		for(int lod: lod_levels()){
 			wr->decode_to(lod);
 				if(lod!=100){
 				hausdorffs[lod] = wr->get_mesh()->collectGlobalHausdorff().second;
@@ -135,7 +135,7 @@ void Tile::dump_raw(const char *path){
 		offset += sizeof(size_t);
 
 		// store the polyhedron-level hausdorff information for all the LODs
-		for(int lod=20;lod<=100;lod+=20){
+		for(int lod: lod_levels()){
 			*(float *)(buffer + offset) = hausdorffs[lod];
 			offset += sizeof(float);
 			*(float *)(buffer + offset) = proxyhausdorffs[lod];
@@ -150,7 +150,7 @@ void Tile::dump_raw(const char *path){
 			offset += 3*sizeof(float);
 			memcpy(buffer+offset, v->core, sizeof(float)*3);
 			offset += 3*sizeof(float);
-			for(int lod=20;lod<=100;lod+=20){
+			for(int lod: lod_levels()){
 				*(size_t *)(buffer+offset) = v->offset_lod[lod];
 				offset += sizeof(size_t);
 				*(size_t *)(buffer+offset) = v->volume_lod[lod];

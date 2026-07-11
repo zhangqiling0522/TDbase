@@ -42,7 +42,7 @@ HiMesh_Wrapper::HiMesh_Wrapper(char *dt, size_t i, Decoding_Type t){
 			v->id = i;
 		}
 	}else{
-		for(int lod=20;lod<=100;lod+=20){
+		for(int lod: lod_levels()){
 			this->hausdorffs[lod] = *(float *)(meta_buffer+meta_size);
 			meta_size += sizeof(float);
 			this->proxyhausdorffs[lod] = *(float *)(meta_buffer+meta_size);
@@ -62,7 +62,7 @@ HiMesh_Wrapper::HiMesh_Wrapper(char *dt, size_t i, Decoding_Type t){
 			v->id = i;
 
 			// load the offset and volume information for varying LODs
-			for(int lod=20;lod<=100;lod+=20){
+			for(int lod: lod_levels()){
 				size_t of = *(size_t *)(meta_buffer+meta_size);
 				meta_size += sizeof(size_t);
 				size_t vl = *(size_t *)(meta_buffer+meta_size);
@@ -107,6 +107,9 @@ HiMesh_Wrapper::~HiMesh_Wrapper(){
 	}
 	voxels.clear();
 	if(mesh){
+		if(mesh->original_mesh){
+			delete mesh->original_mesh;
+		}
 		delete mesh;
 	}
 	for(auto a:meshes){
@@ -170,6 +173,45 @@ size_t HiMesh_Wrapper::get_voxel_offset(int id, int lod){
 }
 size_t HiMesh_Wrapper::get_voxel_size(int id, int lod){
 	return voxels[id]->volume_lod[lod];
+}
+
+
+// Compute Hausdorff distances for all LOD levels against LOD100.
+// Only valid for MULTIMESH type. Call before dump_raw.
+void HiMesh_Wrapper::computeMultiLodHausdorff(){
+	if(type != MULTIMESH) return;
+	assert(meshes.find(100) != meshes.end());
+
+	HiMesh *ref = meshes[100];
+	ref->updateAABB();
+	ref->area_unit = ref->sampling_gap();
+	ref->sample_points(ref->area_unit);
+
+	struct timeval start = get_cur_time();
+
+	for(int lod: lod_levels_desc()){
+		if(lod == 100){
+			continue;
+		}
+		assert(meshes.find(lod) != meshes.end());
+		HiMesh *cur = meshes[lod];
+
+		// Mark all faces as Splittable so the existing
+		// computeHausdorfDistance() processes them
+		for(HiMesh::Face_iterator fit = cur->facets_begin();
+		    fit != cur->facets_end(); ++fit){
+			fit->setSplittable();
+		}
+
+		auto hd = cur->computeHausdorfDistance(ref);
+		hausdorffs[lod] = hd.second;
+		proxyhausdorffs[lod] = hd.first;
+		auto avg = cur->collectGlobalHausdorff(AVG);
+		log("LOD%d hausdorff MAX(ph=%.3f,h=%.3f) AVG(ph=%.3f,h=%.3f) vertices=%zu",
+		    lod, hd.first, hd.second, avg.first, avg.second, cur->size_of_vertices());
+	}
+
+	logt("compute hausdorff for multi-lod mesh %ld done", start, id);
 }
 
 }

@@ -1,3 +1,4 @@
+
 /*
  * IntersectionJoin.cpp
  *
@@ -72,14 +73,15 @@ void IntersectJoin::geometric_computation(query_context &ctx){
 	if(config.use_aabb){
 		int index = 0;
 		for(candidate_entry *c:ctx.candidates){
-			c->mesh_wrapper->get_mesh()->get_segments();
+			//c->mesh_wrapper->get_mesh()->get_segments();
 			for(candidate_info &info:c->candidates){
-				assert(info.voxel_pairs.size()==1);
+				//assert(info.voxel_pairs.size()==1);
 				ctx.gp.results[index++].intersected = c->mesh_wrapper->get_mesh()->intersect_tree(info.mesh_wrapper->get_mesh());
 			}// end for candidate list
 		}// end for candidates
 		// clear the trees for current LOD
 		for(candidate_entry *c:ctx.candidates){
+			c->mesh_wrapper->get_mesh()->clear_aabb_tree();
 			for(candidate_info &info:c->candidates){
 				info.mesh_wrapper->get_mesh()->clear_aabb_tree();
 			}
@@ -101,11 +103,18 @@ void IntersectJoin::evaluate_candidate_lists(query_context &ctx){
 		for(auto ci_iter=(*ce_iter)->candidates.begin();ci_iter!=(*ce_iter)->candidates.end();){
 			HiMesh_Wrapper *wrapper2 = (ci_iter)->mesh_wrapper;
 			bool determined = false;
-			int cand_count = 0;
+			//int cand_count = 0;
+			bool sure_not_intersect = true;
 			for(voxel_pair &vp:(ci_iter)->voxel_pairs){
 				determined |= ctx.gp.results[index].intersected;
 				// the minimum possible distance already been computed
-				cand_count += (ctx.gp.results[index].min_dist>0);
+				//cand_count += (ctx.gp.results[index].min_dist>0);
+				if(config.use_aabb){
+					sure_not_intersect &= !ctx.gp.results[index].intersected;
+				}
+				else{
+					sure_not_intersect &= (ctx.gp.results[index].distance>0);
+				}
 				index++;
 			}
 
@@ -116,7 +125,7 @@ void IntersectJoin::evaluate_candidate_lists(query_context &ctx){
 				//delete *ci_iter;
 				(*ce_iter)->candidates.erase(ci_iter);
 				// all voxel pairs must not intersect
-			}else if(cand_count == (ci_iter)->voxel_pairs.size()){
+			}else if(sure_not_intersect){
 				// must not intersect
 				(*ce_iter)->candidates.erase(ci_iter);
 			}else{

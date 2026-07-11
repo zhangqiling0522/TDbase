@@ -37,9 +37,15 @@ Tile::Tile(std::vector<HiMesh_Wrapper *> &objs){
 	for(HiMesh_Wrapper *wr:objs){
 		if(wr->type == MULTIMESH){
 			HiMesh *original = wr->get_meshes()[100];
-			for(int lod=20;lod<=80;lod+=20){
+			for(int lod: lod_levels()){
+				if(lod == 100){
+					continue;
+				}
 				HiMesh *low = wr->get_meshes()[lod];
-				low->computeHausdorfDistance(original);
+				auto cached = low->collectGlobalHausdorff(MAX);
+				if(cached.first == 0 && cached.second == 0){
+					low->computeHausdorfDistance(original);
+				}
 				//pair<float, float> hf = low->collectGlobalHausdorff(AVG);
 				//log("%d: %f %f", lod, hf.first, hf.second);
 			}

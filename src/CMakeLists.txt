@@ -47,21 +47,26 @@ file(GLOB TDBASE_SRCS
 	tools/*.cpp
 )
 
-include_directories(include)
+list(REMOVE_ITEM TDBASE_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/tools/range_analysis.cpp")
+
+include_directories(include mytest)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL")
 
 if(DEFINED ENV{USE_GPU})
     message (STATUS "cuda")
+    set(CUDA_TOOLKIT_ROOT_DIR /usr/local/cuda CACHE PATH "CUDA Toolkit root")
+    set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc CACHE PATH "CUDA compiler")
+    
     set(CMAKE_CUDA_ARCHITECTURES 86)
-    set(CMAKE_CUDA_COMPILER /usr/bin/nvcc)
-    enable_language("CUDA")
+    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --expt-relaxed-constexpr -Xcompiler -fpermissive")
+    enable_language(CUDA)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_GPU")
-    add_executable (tdbase ${TDBASE_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_SRCS} ${GEOMETRY_CUDA_SRCS} ${INDEX_SRCS} ${STORAGE_SRCS} ${JOIN_SRCS})
+    add_executable (tdbase ${TDBASE_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_SRCS} ${GEOMETRY_CUDA_SRCS} ${INDEX_SRCS} ${STORAGE_SRCS} ${JOIN_SRCS} mytest/face_classifier.cpp)
     target_link_libraries(tdbase PRIVATE gmp mpfr pthread OpenMP::OpenMP_CXX cuda)
     
 else()
     message (STATUS "non-cuda")
-    add_executable (tdbase ${TDBASE_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_SRCS} ${INDEX_SRCS} ${STORAGE_SRCS} ${JOIN_SRCS})
+    add_executable (tdbase ${TDBASE_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_SRCS} ${INDEX_SRCS} ${STORAGE_SRCS} ${JOIN_SRCS} mytest/face_classifier.cpp)
     target_link_libraries(tdbase PRIVATE gmp mpfr pthread OpenMP::OpenMP_CXX)
 endif()
     
@@ -69,4 +74,25 @@ add_executable (wrap simplifier/wrap.cpp)
 target_link_libraries(wrap PRIVATE gmp mpfr)
 
 add_executable (mymesh ${MYMESH_SRCS})
+
+file(GLOB MYTEST_SRCS
+	mytest/*.cpp
+)
+
+file(GLOB MYTEST_CUDA_SRCS
+	mytest/*.cu
+)
+
+file(GLOB GEOMETRY_CPU_SRCS
+	geometry/TriInt.cpp
+	geometry/computing_cpu.cpp
+)
+
+if(DEFINED ENV{USE_GPU})
+    add_executable (face_classifier ${MYTEST_SRCS} ${MYTEST_CUDA_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_CPU_SRCS} ${STORAGE_SRCS} ${INDEX_SRCS})
+    target_link_libraries(face_classifier PRIVATE gmp mpfr pthread OpenMP::OpenMP_CXX cuda)
+else()
+    add_executable (face_classifier ${MYTEST_SRCS} ${SPATIAL_SRCS} ${GEOMETRY_CPU_SRCS} ${STORAGE_SRCS} ${INDEX_SRCS})
+    target_link_libraries(face_classifier PRIVATE gmp mpfr pthread OpenMP::OpenMP_CXX)
+endif()
 

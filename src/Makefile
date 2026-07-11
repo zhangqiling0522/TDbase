@@ -5,7 +5,7 @@ NVCC = nvcc
 
 CPPFLAGS	= -std=c++17 -g -O3 -Wno-unused-result -DBOOST_ALLOW_DEPRECATED_HEADERS -DBOOST_BIND_GLOBAL_PLACEHOLDERS -DCGAL_HAS_THREADS -DCGAL_DISABLE_ROUNDING_MATH_CHECK=ON -fopenmp -frounding-math
 NVCCFLAGS	= -std=c++17 -g -O3
-INCFLAGS	= -I./ -I./include -I/usr/include -I/usr/local/include
+INCFLAGS	= -I./ -I./include -I./mytest -I/usr/include -I/usr/local/include
 LIBS		= -L/usr/lib/x86_64-linux-gnu/ -lgmp -lmpfr -lpthread -lboost_program_options -lstdc++ -lz
 
 CGALFLAGS	= -Wl,-rpath -frounding-math 
@@ -99,8 +99,8 @@ simulator_multi: tools/simulator_multi.o $(SPATIAL_OBJS) $(INDEX_OBJS) $(GEOMETR
 nuclei_generator: tools/generate_nuclei.o $(SPATIAL_OBJS) $(INDEX_OBJS) $(GEOMETRY_OBJS)
 	$(CXX) -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math $^ $(INCFLAGS) $(CPPFLAGS) $(LIBS) -o ../build/$@
 
-tdbase: tools/tdbase.o $(GEOMETRY_OBJS) $(JOIN_OBJS) $(STORAGE_OBJS) $(INDEX_OBJS) $(SPATIAL_OBJS)
-	$(CXX) -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math $^ $(INCFLAGS) $(LIBS) $(CGALFLAGS) $(CPPFLAGS) -o ../build/$@
+tdbase: tools/tdbase.o tools/simulator.o mytest/face_classifier.o $(GEOMETRY_OBJS) $(JOIN_OBJS) $(STORAGE_OBJS) $(INDEX_OBJS) $(SPATIAL_OBJS)
+	$(CXX) -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math $^ $(INCFLAGS) $(LIBS) $(CGALFLAGS) $(CPPFLAGS) -o build/$@
 
 develop: $(MYMESH_OBJS)
 	$(CXX) $^ $(INCFLAGS) $(CPPFLAGS) -o ../build/$@

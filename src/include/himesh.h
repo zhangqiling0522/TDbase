@@ -32,6 +32,7 @@
 #include <utility>
 #include <unordered_map>
 #include <map>
+#include <vector>
 
 #include <CGAL/Kernel/interface_macros.h>
 #include <CGAL/Simple_cartesian.h>
@@ -79,6 +80,15 @@
 
 namespace tdbase{
 
+inline const std::vector<int> &lod_levels(){
+	static const std::vector<int> levels = {20, 30, 40, 60, 80, 90, 100};
+	return levels;
+}
+
+inline std::vector<int> lod_levels_desc(){
+	return std::vector<int>(lod_levels().rbegin(), lod_levels().rend());
+}
+
 // Size of the compressed data buffer.
 // for configuration
 #define BUFFER_SIZE 10 * 1024 * 1024
@@ -112,7 +122,7 @@ typedef CGAL::Triangulation_3<MyKernel> Triangulation;
 typedef Triangulation::Tetrahedron 	Tetrahedron;
 
 typedef CGAL::AABB_face_graph_triangle_primitive<Polyhedron> Primitive;
-typedef CGAL::AABB_traits_3<MyKernel, Primitive> Traits;
+typedef CGAL::AABB_traits<MyKernel, Primitive> Traits;
 typedef CGAL::AABB_tree<Traits> Tree;
 typedef Tree::Point_and_primitive_id Point_and_primitive_id;
 
@@ -122,8 +132,8 @@ typedef MyKernel::Segment_3 Segment;
 typedef MyKernel::Triangle_3 Triangle;
 
 typedef std::list<Triangle>::iterator Iterator;
-typedef CGAL::AABB_triangle_primitive_3<MyKernel, Iterator> TrianglePrimitive;
-typedef CGAL::AABB_traits_3<MyKernel, TrianglePrimitive> TriangleTraits;
+typedef CGAL::AABB_triangle_primitive<MyKernel, Iterator> TrianglePrimitive;
+typedef CGAL::AABB_traits<MyKernel, TrianglePrimitive> TriangleTraits;
 typedef CGAL::AABB_tree<TriangleTraits> TriangleTree;
 
 
@@ -719,6 +729,10 @@ public:
 
 	float getHausdorffDistance();
 	float getProxyHausdorffDistance();
+
+	// Compute and store Hausdorff distances for all LOD levels against LOD100.
+	// Only valid for MULTIMESH type. Must be called before dump_raw.
+	void computeMultiLodHausdorff();
 };
 
 // some general utility functions
