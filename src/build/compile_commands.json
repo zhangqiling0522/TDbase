@@ -1,0 +1,362 @@
+[
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/tools/simulator.cpp.o -c /mnt/d/TDbase_/tdbase/src/tools/simulator.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/tools/simulator.cpp",
+  "output": "CMakeFiles/tdbase.dir/tools/simulator.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/tools/tdbase.cpp.o -c /mnt/d/TDbase_/tdbase/src/tools/tdbase.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/tools/tdbase.cpp",
+  "output": "CMakeFiles/tdbase.dir/tools/tdbase.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_IO.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_IO.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_IO.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_IO.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_aabb.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_aabb.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_aabb.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_aabb.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_box.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_box.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_box.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_box.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_comp.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_comp.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_comp.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_comp.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_decomp.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_decomp.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_decomp.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_decomp.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_hausdorff.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_hausdorff.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_hausdorff.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_hausdorff.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_query.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_query.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_query.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_query.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_retrieve.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_retrieve.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_retrieve.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_retrieve.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_skeleton.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_skeleton.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_skeleton.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_skeleton.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_utils.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_utils.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_utils.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_utils.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/himesh_wrapper.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_wrapper.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_wrapper.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/himesh_wrapper.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/spatial/spatial_common.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/spatial_common.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/spatial_common.cpp",
+  "output": "CMakeFiles/tdbase.dir/spatial/spatial_common.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/geometry/TriInt.cpp.o -c /mnt/d/TDbase_/tdbase/src/geometry/TriInt.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/TriInt.cpp",
+  "output": "CMakeFiles/tdbase.dir/geometry/TriInt.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/geometry/computing_cpu.cpp.o -c /mnt/d/TDbase_/tdbase/src/geometry/computing_cpu.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/computing_cpu.cpp",
+  "output": "CMakeFiles/tdbase.dir/geometry/computing_cpu.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/geometry/geometry_computer.cpp.o -c /mnt/d/TDbase_/tdbase/src/geometry/geometry_computer.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/geometry_computer.cpp",
+  "output": "CMakeFiles/tdbase.dir/geometry/geometry_computer.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/tdbase.dir/includes_CUDA.rsp  --expt-relaxed-constexpr -Xcompiler -fpermissive -g \"--generate-code=arch=compute_86,code=[compute_86,sm_86]\" -x cu -c /mnt/d/TDbase_/tdbase/src/geometry/computing_gpu.cu -o CMakeFiles/tdbase.dir/geometry/computing_gpu.cu.o",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/computing_gpu.cu",
+  "output": "CMakeFiles/tdbase.dir/geometry/computing_gpu.cu.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  --options-file CMakeFiles/tdbase.dir/includes_CUDA.rsp  --expt-relaxed-constexpr -Xcompiler -fpermissive -g \"--generate-code=arch=compute_86,code=[compute_86,sm_86]\" -x cu -c /mnt/d/TDbase_/tdbase/src/geometry/cuda_common.cu -o CMakeFiles/tdbase.dir/geometry/cuda_common.cu.o",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/cuda_common.cu",
+  "output": "CMakeFiles/tdbase.dir/geometry/cuda_common.cu.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/index/octree.cpp.o -c /mnt/d/TDbase_/tdbase/src/index/octree.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/index/octree.cpp",
+  "output": "CMakeFiles/tdbase.dir/index/octree.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/index/stree.cpp.o -c /mnt/d/TDbase_/tdbase/src/index/stree.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/index/stree.cpp",
+  "output": "CMakeFiles/tdbase.dir/index/stree.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/storage/cache.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/cache.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/cache.cpp",
+  "output": "CMakeFiles/tdbase.dir/storage/cache.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/storage/tile.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/tile.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/tile.cpp",
+  "output": "CMakeFiles/tdbase.dir/storage/tile.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/storage/tile_IO.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/tile_IO.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/tile_IO.cpp",
+  "output": "CMakeFiles/tdbase.dir/storage/tile_IO.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/join/DWithinJoin.cpp.o -c /mnt/d/TDbase_/tdbase/src/join/DWithinJoin.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/join/DWithinJoin.cpp",
+  "output": "CMakeFiles/tdbase.dir/join/DWithinJoin.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/join/DistanceJoin.cpp.o -c /mnt/d/TDbase_/tdbase/src/join/DistanceJoin.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/join/DistanceJoin.cpp",
+  "output": "CMakeFiles/tdbase.dir/join/DistanceJoin.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/join/IntersectionJoin.cpp.o -c /mnt/d/TDbase_/tdbase/src/join/IntersectionJoin.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/join/IntersectionJoin.cpp",
+  "output": "CMakeFiles/tdbase.dir/join/IntersectionJoin.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/join/KNNJoin.cpp.o -c /mnt/d/TDbase_/tdbase/src/join/KNNJoin.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/join/KNNJoin.cpp",
+  "output": "CMakeFiles/tdbase.dir/join/KNNJoin.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/join/SpatialJoin.cpp.o -c /mnt/d/TDbase_/tdbase/src/join/SpatialJoin.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/join/SpatialJoin.cpp",
+  "output": "CMakeFiles/tdbase.dir/join/SpatialJoin.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/tdbase.dir/mytest/face_classifier.cpp.o -c /mnt/d/TDbase_/tdbase/src/mytest/face_classifier.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mytest/face_classifier.cpp",
+  "output": "CMakeFiles/tdbase.dir/mytest/face_classifier.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/wrap.dir/simplifier/wrap.cpp.o -c /mnt/d/TDbase_/tdbase/src/simplifier/wrap.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/simplifier/wrap.cpp",
+  "output": "CMakeFiles/wrap.dir/simplifier/wrap.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/Facet.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/Facet.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/Facet.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/Facet.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/Half_Edge.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/Half_Edge.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/Half_Edge.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/Half_Edge.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/develop.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/develop.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/develop.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/develop.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/mesh_IO.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/mesh_IO.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/mesh_IO.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/mesh_IO.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/mesh_fix.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/mesh_fix.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/mesh_fix.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/mesh_fix.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -o CMakeFiles/mymesh.dir/mymesh/mymesh.cpp.o -c /mnt/d/TDbase_/tdbase/src/mymesh/mymesh.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mymesh/mymesh.cpp",
+  "output": "CMakeFiles/mymesh.dir/mymesh/mymesh.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/mytest/face_classifier.cpp.o -c /mnt/d/TDbase_/tdbase/src/mytest/face_classifier.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mytest/face_classifier.cpp",
+  "output": "CMakeFiles/face_classifier.dir/mytest/face_classifier.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/mytest/test_face_classifier.cpp.o -c /mnt/d/TDbase_/tdbase/src/mytest/test_face_classifier.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/mytest/test_face_classifier.cpp",
+  "output": "CMakeFiles/face_classifier.dir/mytest/test_face_classifier.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_IO.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_IO.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_IO.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_IO.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_aabb.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_aabb.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_aabb.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_aabb.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_box.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_box.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_box.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_box.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_comp.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_comp.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_comp.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_comp.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_decomp.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_decomp.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_decomp.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_decomp.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_hausdorff.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_hausdorff.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_hausdorff.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_hausdorff.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_query.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_query.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_query.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_query.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_retrieve.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_retrieve.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_retrieve.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_retrieve.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_skeleton.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_skeleton.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_skeleton.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_skeleton.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_utils.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_utils.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_utils.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_utils.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/himesh_wrapper.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/himesh_wrapper.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/himesh_wrapper.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/himesh_wrapper.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/spatial/spatial_common.cpp.o -c /mnt/d/TDbase_/tdbase/src/spatial/spatial_common.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/spatial/spatial_common.cpp",
+  "output": "CMakeFiles/face_classifier.dir/spatial/spatial_common.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/geometry/TriInt.cpp.o -c /mnt/d/TDbase_/tdbase/src/geometry/TriInt.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/TriInt.cpp",
+  "output": "CMakeFiles/face_classifier.dir/geometry/TriInt.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/geometry/computing_cpu.cpp.o -c /mnt/d/TDbase_/tdbase/src/geometry/computing_cpu.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/geometry/computing_cpu.cpp",
+  "output": "CMakeFiles/face_classifier.dir/geometry/computing_cpu.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/storage/cache.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/cache.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/cache.cpp",
+  "output": "CMakeFiles/face_classifier.dir/storage/cache.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/storage/tile.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/tile.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/tile.cpp",
+  "output": "CMakeFiles/face_classifier.dir/storage/tile.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/storage/tile_IO.cpp.o -c /mnt/d/TDbase_/tdbase/src/storage/tile_IO.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/storage/tile_IO.cpp",
+  "output": "CMakeFiles/face_classifier.dir/storage/tile_IO.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/index/octree.cpp.o -c /mnt/d/TDbase_/tdbase/src/index/octree.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/index/octree.cpp",
+  "output": "CMakeFiles/face_classifier.dir/index/octree.cpp.o"
+},
+{
+  "directory": "/mnt/d/TDbase_/tdbase/src/build",
+  "command": "/usr/bin/c++  -I/mnt/d/TDbase_/tdbase/src/include -I/mnt/d/TDbase_/tdbase/src/mytest  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g -fopenmp -o CMakeFiles/face_classifier.dir/index/stree.cpp.o -c /mnt/d/TDbase_/tdbase/src/index/stree.cpp",
+  "file": "/mnt/d/TDbase_/tdbase/src/index/stree.cpp",
+  "output": "CMakeFiles/face_classifier.dir/index/stree.cpp.o"
+}
+]

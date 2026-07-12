@@ -1,0 +1,6 @@
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/tdbase.dir
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/wrap.dir
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/mymesh.dir
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/face_classifier.dir
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/edit_cache.dir
+/mnt/d/TDbase_/tdbase/src/build/CMakeFiles/rebuild_cache.dir

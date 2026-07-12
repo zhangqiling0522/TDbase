@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/mnt/d/TDbase_/tdbase/src/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

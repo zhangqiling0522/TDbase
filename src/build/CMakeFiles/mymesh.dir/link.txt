@@ -1,0 +1,1 @@
+/usr/bin/c++  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g CMakeFiles/mymesh.dir/mymesh/Facet.cpp.o CMakeFiles/mymesh.dir/mymesh/Half_Edge.cpp.o CMakeFiles/mymesh.dir/mymesh/develop.cpp.o CMakeFiles/mymesh.dir/mymesh/mesh_IO.cpp.o CMakeFiles/mymesh.dir/mymesh/mesh_fix.cpp.o CMakeFiles/mymesh.dir/mymesh/mymesh.cpp.o -o mymesh

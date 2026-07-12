@@ -1,0 +1,1 @@
+/usr/bin/c++  -DBOOST_HAS_THREADS -DCGAL_HAS_THREADS -DCGAL_DONT_USE_LAZY_KERNEL -DUSE_GPU -g CMakeFiles/wrap.dir/simplifier/wrap.cpp.o -o wrap  -lgmp -lmpfr
